@@ -231,6 +231,11 @@ typedef enum {
     BLURAY_DYNAMIC_RANGE_DOLBY_VISION = 2
 } bd_dynamic_range_type_e;
 
+typedef enum {
+    BLURAY_COLOR_SPACE_BT709  = 1,
+    BLURAY_COLOR_SPACE_BT2020 = 2
+} bd_color_space_e;
+
 /** Clip substream information */
 typedef struct bd_stream_info {
     uint8_t     coding_type;
@@ -241,6 +246,10 @@ typedef struct bd_stream_info {
     uint16_t    pid;
     uint8_t     aspect;
     uint8_t     subpath_id;
+    uint8_t     dynamic_range_type;
+    uint8_t     color_space;
+    uint8_t     cr_flag;
+    uint8_t     hdr_plus_flag;
 } BLURAY_STREAM_INFO;
 
 /** Clip information */
@@ -254,12 +263,14 @@ typedef struct bd_clip {
     uint8_t            ig_stream_count;
     uint8_t            sec_audio_stream_count;
     uint8_t            sec_video_stream_count;
+    uint8_t            dv_stream_count;
     BLURAY_STREAM_INFO *video_streams;
     BLURAY_STREAM_INFO *audio_streams;
     BLURAY_STREAM_INFO *pg_streams;
     BLURAY_STREAM_INFO *ig_streams;
     BLURAY_STREAM_INFO *sec_audio_streams;
     BLURAY_STREAM_INFO *sec_video_streams;
+    BLURAY_STREAM_INFO *dv_streams;
 
     uint64_t           start_time;  /**< start media time, 90kHz, ("playlist time") */
     uint64_t           in_time;     /**< start timestamp, 90kHz */
@@ -300,6 +311,7 @@ typedef struct bd_title_info {
     BLURAY_TITLE_MARK    *marks;
 
     uint8_t              mvc_base_view_r_flag;
+    uint8_t              sdr_conversion_notification_flag;
 } BLURAY_TITLE_INFO;
 
 /** Sound effect data */
