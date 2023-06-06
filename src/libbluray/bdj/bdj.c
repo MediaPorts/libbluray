@@ -94,10 +94,10 @@ static void *_load_dll(const wchar_t *lib_path, const wchar_t *dll_search_path)
             pRemoveDllDirectory(cookie);
         }
     } else {
-        result = LoadLibraryW(lib_path);
+        result = LoadLibraryExW(lib_path, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
         if (!result) {
             SetDllDirectoryW(dll_search_path);
-            result = LoadLibraryW(lib_path);
+            result = LoadLibraryExW(lib_path, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
             SetDllDirectoryW(L"");
         }
     }
